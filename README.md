@@ -1,7 +1,8 @@
 # yelu-language
-Yelu language is a conlag used in my roleplaying worlds.
+Yelu language is a conlang created by Haitike.
 It has a semitic style of grammar and each consonant has a elemental meaning.
-This repository has tools like a dictionary, word root analyzer or a grammar guide.
+This repository has all the vocabulary and a basic guide with phonetics and grammar.
+There is some tools: a dictionary and a word root analyzer.
 
 Dependendies:
 - For the Dictionary: Python 3
