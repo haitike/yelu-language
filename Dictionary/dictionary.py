@@ -1,3 +1,26 @@
+CONS = { "b" : "" ,
+         "ch" : "",
+         "d" : "",
+         "f" : "",
+         "g" : "",
+         "h" : "",
+         "k" : "",
+         "l" : "human",
+         "m" : "",
+         "n" : "",
+         "p" : "",
+         "q" : "" ,
+         "r" : "" ,
+         "rr" : "" ,
+         "s" : "" ,
+         "sh" : "" ,
+         "t" : "" ,
+         "th" : "" ,
+         "ts" : "" ,
+         "w" : "" ,
+         "y" : "matter" ,  }
+VOW = {"a", "e", "i", "u", "\'"}
+
 while True:
 
     option = input("Select an option:\n"
