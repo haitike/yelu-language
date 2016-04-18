@@ -21,6 +21,27 @@ CONSONANTS = { "b" : "" ,
          "y" : "matter" ,  }
 VOWELS = {"a", "e", "i", "u", "\'"}
 
+def unvowel(word):
+    uv_word = word
+    for vowel in VOWELS:
+        uv_word = uv_word.replace(vowel,"")
+    return uv_word
+
+def has_invalid_letter(word):
+    uv_word = unvowel(word)
+    for letter in uv_word:
+        if letter not in CONSONANTS:
+            return True
+    return False
+
+
+def get_root(word):
+    uv_word = unvowel(word)
+    root_list = []
+    for l in uv_word:
+        root_list.append(l)
+    return root_list
+
 while True:
 
     option = input("Select an option:\n"
@@ -33,20 +54,10 @@ while True:
 
     if option == "1":
         new_word = input("Input a word: ")
-
-        no_vowel_word = new_word
-        for vowel in VOWELS:
-            no_vowel_word = no_vowel_word.replace(vowel,"")
-
-        invalid_letter = False
-        for letter in no_vowel_word:
-            if letter not in CONSONANTS:
-                invalid_letter = True
-
-        if invalid_letter:
+        if has_invalid_letter(new_word):
             print("Some of the letters you introduced are not in Yelu alphabet")
         else:
-            print("done. <{}> was introduced. Root: <{}>".format(new_word,no_vowel_word))
+            print("done. [{}] was introduced. Root: {}".format(new_word,get_root(new_word)))
 
     if option == "2":
         print("search...")
@@ -63,3 +74,4 @@ while True:
     if option == "e":
         print("Exiting...")
         break
+
