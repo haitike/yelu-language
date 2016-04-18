@@ -1,4 +1,4 @@
-CONS = { "b" : "" ,
+CONSONANTS = { "b" : "" ,
          "ch" : "",
          "d" : "",
          "f" : "",
@@ -19,7 +19,7 @@ CONS = { "b" : "" ,
          "ts" : "" ,
          "w" : "" ,
          "y" : "matter" ,  }
-VOW = {"a", "e", "i", "u", "\'"}
+VOWELS = {"a", "e", "i", "u", "\'"}
 
 while True:
 
@@ -33,6 +33,20 @@ while True:
 
     if option == "1":
         new_word = input("Input a word: ")
+
+        no_vowel_word = new_word
+        for vowel in VOWELS:
+            no_vowel_word = no_vowel_word.replace(vowel,"")
+
+        invalid_letter = False
+        for letter in no_vowel_word:
+            if letter not in CONSONANTS:
+                invalid_letter = True
+
+        if invalid_letter:
+            print("Some of the letters you introduced are not in Yelu alphabet")
+        else:
+            print("done. <{}> was introduced. Root: <{}>".format(new_word,no_vowel_word))
 
     if option == "2":
         print("search...")
