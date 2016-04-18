@@ -1,5 +1,7 @@
+import shelve
+
 CONSONANTS = { "b" : "" ,
-         "ch" : "",
+         "c" : "",
          "d" : "",
          "f" : "",
          "g" : "",
@@ -11,14 +13,14 @@ CONSONANTS = { "b" : "" ,
          "p" : "",
          "q" : "" ,
          "r" : "" ,
-         "rr" : "" ,
+         "R" : "" ,
          "s" : "" ,
-         "sh" : "" ,
          "t" : "" ,
-         "th" : "" ,
-         "ts" : "" ,
+         "ç" : "" ,
          "w" : "" ,
-         "y" : "matter" ,  }
+         "x" : "" ,
+         "y" : "matter" ,
+         "z" : "" ,}
 VOWELS = {"a", "e", "i", "u", "\'"}
 
 def unvowel(word):
@@ -34,17 +36,19 @@ def has_invalid_letter(word):
             return True
     return False
 
-
-def get_root(word):
+def get_root_string(word):
     uv_word = unvowel(word)
-    root_list = []
-    for l in uv_word:
-        root_list.append(l)
-    return root_list
+    sorted_list = ''.join(sorted(uv_word))
+    return sorted_list
+
+def get_root_meanings(root_string):
+    meanings = []
+    for i in root_string:
+        meanings.append(CONSONANTS[i])
+    return meanings
 
 while True:
-
-    option = input("Select an option:\n"
+    option = input("\nSelect an option:\n"
           "1 - Add Word\n"
           "2 - Search (Yelu)\n"
           "3 - Search (English)\n"
@@ -57,7 +61,23 @@ while True:
         if has_invalid_letter(new_word):
             print("Some of the letters you introduced are not in Yelu alphabet")
         else:
-            print("done. [{}] was introduced. Root: {}".format(new_word,get_root(new_word)))
+            root_string = get_root_string(new_word)
+            if root_string:
+                print("Root: {}. Root meanings: {}".format(list(root_string), get_root_meanings(root_string)))
+                meaning = input("Now introduce the english meaning of <{}>: ".format(new_word))
+
+                d = shelve.open("Words/data")
+                if root_string not in d:
+                    d[root_string] = dict()
+                temp = d[root_string]
+                temp[new_word] = meaning
+                d[root_string] = temp
+                d.close()
+                print("Done. Word was added.")
+
+            else:
+                print("You introduced an empty word or a word without consonants")
+        input()
 
     if option == "2":
         print("search...")
@@ -69,9 +89,30 @@ while True:
         print("delete...")
 
     if option == "5":
-        print("roots...")
+        l = input("Write the first element of a root and all related words will be displayed :  ")
+        if l:
+            if l[0] in CONSONANTS:
+                d = shelve.open("Words/data")
+                empty = True
+                for i in d:
+                    if i[0] == l[0]:
+                        empty = False
+                        print("\n--> {} {}".format(i, get_root_meanings(i)))
+                        for e in d[i]:
+                            print("{} : {}".format(e, d[i][e]))
+                d.close()
+
+                if empty:
+                    print("There is no words beginning with that letter")
+
+            else:
+                print("That letter is not in Yelu Alphabet or it is a vowel")
+        else:
+            print("You must write a letter")
+        input()
 
     if option == "e":
         print("Exiting...")
         break
+
 
