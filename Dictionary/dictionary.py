@@ -88,13 +88,13 @@ while True:
         print("delete...")
 
     if option == "5":
-        l = input("Write the first element of a root and all related words will be displayed :  ")
+        l = input("Write a radical and will show all words that contain it (Empty: Show all words)  ")
         if l:
             if l[0] in CONSONANTS:
                 d = shelve.open("Words/data")
                 empty = True
                 for i in d:
-                    if i[0] == l[0]:
+                    if l[0] in i:
                         empty = False
                         print("\n--> {} {}".format(i, get_root_meanings(i)))
                         for e in d[i]:
@@ -107,7 +107,17 @@ while True:
             else:
                 print("That letter is not in Yelu Alphabet or it is a vowel")
         else:
-            print("You must write a letter")
+            d = shelve.open("Words/data")
+            empty = True
+            for i in d:
+                empty = False
+                print("\n--> {} {}".format(i, get_root_meanings(i)))
+                for e in d[i]:
+                    print("{} : {}".format(e, d[i][e]))
+            d.close()
+
+            if empty:
+                print("Dictionary is empty")
         input()
 
     if option == "e":
