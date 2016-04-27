@@ -1,5 +1,5 @@
 CONSONANTS
-         "b" : "fire"  (fire, male, energy, change, three)
+         "b" : "fire" (*) (fire, male, energy, change, three)
          "c" : "negative"  (negative, opposite, no, evil )
          "d" : "far"   (far, illogical, infinite)
          "f" : "fast"  (fast)
@@ -12,7 +12,7 @@ CONSONANTS
          "p" : "spirit" (spirit, religion, supernatural, thousand)
          "q" : "perfect" (ten, nation, nirvana, yelu-)
          "r" : "light" (light, positive, main, sun, good)
-         "s" : "water" (water, female, peace, tradition, two)
+         "s" : "water" (*) (water, female, peace, tradition, two)
          "t" : "near"  (near, close, logical, number, finite)
          "ç" : "thunder" (thunder, war, destruction)
          "w" : "up" (after, above, plus)
