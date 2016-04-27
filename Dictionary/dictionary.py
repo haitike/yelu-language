@@ -46,6 +46,8 @@ def get_root_meanings(root_string):
         meanings.append(CONSONANTS[i])
     return meanings
 
+##### MAIN ##########################
+d = shelve.open("Words/data")
 while True:
     option = input("\nSelect an option:\n"
           "1 - Add Word\n"
@@ -63,17 +65,24 @@ while True:
             root_string = get_root_string(new_word)
             if root_string:
                 print("Root: {}. Root meanings: {}".format(list(root_string), get_root_meanings(root_string)))
-                meaning = input("Now introduce the english meaning of <{}>: ".format(new_word))
-
-                d = shelve.open("Words/data")
                 if root_string not in d:
                     d[root_string] = dict()
-                temp = d[root_string]
-                temp[new_word] = meaning
-                d[root_string] = temp
-                d.close()
-                print("Done. Word was added.")
-
+                if new_word not in d[root_string]:
+                    meaning = input("Now introduce the english meaning of <{}>: ".format(new_word))
+                    temp = d[root_string]
+                    temp[new_word] = meaning
+                    d[root_string] = temp
+                    print("Done. Word was added.")
+                else:
+                    overwrite = input("The word already exists. Do you want to overwrite it? (y/n) ")
+                    if overwrite == "y":
+                        meaning = input("Now introduce the english meaning of <{}>: ".format(new_word))
+                        temp = d[root_string]
+                        temp[new_word] = meaning
+                        d[root_string] = temp
+                        print("Done. Word was added.")
+                    else:
+                        print("word was not added")
             else:
                 print("You introduced an empty word or a word without consonants")
         input()
@@ -91,7 +100,6 @@ while True:
         l = input("Write a radical and will show all words that contain it (Empty: Show all words)  ")
         if l:
             if l[0] in CONSONANTS:
-                d = shelve.open("Words/data")
                 empty = True
                 for i in d:
                     if l[0] in i:
@@ -99,23 +107,19 @@ while True:
                         print("\n--> {} {}".format(i, get_root_meanings(i)))
                         for e in d[i]:
                             print("{} : {}".format(e, d[i][e]))
-                d.close()
-
                 if empty:
                     print("There is no words beginning with that letter")
 
             else:
                 print("That letter is not in Yelu Alphabet or it is a vowel")
         else:
-            d = shelve.open("Words/data")
+
             empty = True
             for i in d:
                 empty = False
                 print("\n--> {} {}".format(i, get_root_meanings(i)))
                 for e in d[i]:
                     print("{} : {}".format(e, d[i][e]))
-            d.close()
-
             if empty:
                 print("Dictionary is empty")
         input()
@@ -123,5 +127,4 @@ while True:
     if option == "e":
         print("Exiting...")
         break
-
-
+d.close()
