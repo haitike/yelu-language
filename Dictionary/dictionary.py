@@ -79,7 +79,8 @@ while True:
                         d[root_string] = temp
                         print("Done. Word was added.")
                     else:
-                        overwrite = input("The word already exists. Do you want to overwrite it? (y/n) ")
+                        print("The word already exists with the meaning:\n- {}\n".format(d[root_string][new_word]))
+                        overwrite = input("Do you want to overwrite it? (y/n) ")
                         if overwrite == "y":
                             meaning = input("Now introduce the english meaning of <{}> (<e> exit to Menu): ".format(new_word))
                             if meaning == "e":
